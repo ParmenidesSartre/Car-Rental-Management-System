@@ -44,6 +44,14 @@ const userSchema = mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    paymentMethods: {
+      type: Array,
+      default: [],
+    },
+    rentalHistory: {
+      type: Array,
+      default: [],
+    },
   },
   {
     timestamps: true,

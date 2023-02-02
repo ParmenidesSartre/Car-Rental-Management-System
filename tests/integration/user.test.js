@@ -38,6 +38,8 @@ describe('User routes', () => {
         email: newUser.email,
         role: newUser.role,
         isEmailVerified: false,
+        paymentMethods: [],
+        rentalHistory: [],
       });
 
       const dbUser = await User.findById(res.body.id);
@@ -164,6 +166,8 @@ describe('User routes', () => {
         email: userOne.email,
         role: userOne.role,
         isEmailVerified: userOne.isEmailVerified,
+        paymentMethods: [],
+        rentalHistory: [],
       });
     });
 
@@ -367,6 +371,8 @@ describe('User routes', () => {
         name: userOne.name,
         role: userOne.role,
         isEmailVerified: userOne.isEmailVerified,
+        paymentMethods: [],
+        rentalHistory: [],
       });
     });
 
@@ -500,6 +506,8 @@ describe('User routes', () => {
         email: updateBody.email,
         role: 'user',
         isEmailVerified: false,
+        paymentMethods: [],
+        rentalHistory: [],
       });
 
       const dbUser = await User.findById(userOne._id);

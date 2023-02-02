@@ -6,6 +6,17 @@
 
 This is a REST API for a car rental management system built using Express, Node.js, MongoDB, and Jest for testing. The API allows users to perform CRUD operations on a fleet of vehicles, including creating and updating vehicle information, searching for available vehicles, and reserving or renting vehicles. The MongoDB database is used to store information about each vehicle, including its make, model, year, license plate number, color, transmission, fuel type, seats, rental rate, and status. The API also includes authentication and validation middleware to ensure the security and integrity of the data. The Jest testing framework is used to test the API's functionality and ensure that it meets the requirements of the car rental management system.
 
+## User Stories
+
+### Car Rental Management
+
+1) As an employee, I want to be able to add, update, and manage the inventory of rental cars, including car models, colors, and features.
+2) As an employee, I want to be able to manage the availability of rental cars, including setting the rental rate, changing the availability status, and managing the pickup and return locations.
+3) As an employee, I want to be able to generate reports on car rental performance, such as the number of reservations, revenue, and customer feedback.
+4) As a customer, I want to be able to search for available rental cars by location, date, car type, and price range.
+5) As a customer, I want to be able to make a reservation for a rental car, including selecting the pickup and return locations, dates, and car type.
+6) As a customer, I want to be able to view the details of my reservation, including the car model, pickup and return locations, dates, and rental rate.
+
 ## Manual Installation
 
 Install the dependencies:

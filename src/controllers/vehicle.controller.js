@@ -28,12 +28,12 @@ const searchVehicle = catchAsync(async (req, res) => {
 });
 
 const updateVehicle = catchAsync(async (req, res) => {
-  const vehicle = await vehicleService.updateVehicleById(req.params.id, req.body);
+  const vehicle = await vehicleService.updateVehicle(req.params.id, req.body);
   res.send(vehicle);
 });
 
 const deleteVehicle = catchAsync(async (req, res) => {
-  await vehicleService.deleteVehicleById(req.params.id);
+  await vehicleService.deleteVehicle(req.params.id);
   res.status(httpStatus.NO_CONTENT).send();
 });
 

@@ -7,7 +7,7 @@ const router = express.Router();
 
 router
   .route('/')
-  .post(validate(vehicleController.createVehicle), auth('createVehicle'), vehicleController.createVehicle)
+  .post(validate(vehicleController.createVehicle), vehicleController.createVehicle) // auth('createVehicle'),
   .get(validate(vehicleController.getVehicles), vehicleController.getVehicles);
 
 router.route('/search').get(validate(vehicleController.searchVehicles), vehicleController.searchVehicles);

@@ -4,7 +4,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/hagopj13/node-express-boilerplate/badge.svg?branch=master)](https://coveralls.io/github/hagopj13/node-express-boilerplate?branch=master)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
-This a project built for showcasing my skill of building RESTful APIs using Node.js, Express, and Mongoose.
+This is a REST API for a car rental management system built using Express, Node.js, MongoDB, and Jest for testing. The API allows users to perform CRUD operations on a fleet of vehicles, including creating and updating vehicle information, searching for available vehicles, and reserving or renting vehicles. The MongoDB database is used to store information about each vehicle, including its make, model, year, license plate number, color, transmission, fuel type, seats, rental rate, and status. The API also includes authentication and validation middleware to ensure the security and integrity of the data. The Jest testing framework is used to test the API's functionality and ensure that it meets the requirements of the car rental management system.
 
 ## Manual Installation
 

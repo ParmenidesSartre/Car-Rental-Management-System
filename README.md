@@ -80,7 +80,10 @@ This is a REST API for a car rental management system built using Express, Node.
 
 The system architecture is based on the [Model-View-Controller (MVC)](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) pattern, which is a common design pattern for web applications. The MVC pattern separates the application into three main components: the model, the view, and the controller. The model represents the data and business logic of the application, the view represents the user interface, and the controller handles user requests and interacts with the model and view components.
 
-<img src="https://www.freecodecamp.org/news/content/images/2021/04/MVC3.png" width="50%" height="50%>
+<p align="center">
+  <img src="https://www.freecodecamp.org/news/content/images/2021/04/MVC3.png" width=40% height=40% >
+  <p align="center">Diagram 1 : Model-View-Controller Architecture</p>
+</p>
 
 ## Table of Contents
 

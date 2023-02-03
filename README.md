@@ -6,6 +6,33 @@
 
 This is a REST API for a car rental management system built using Express, Node.js, MongoDB, and Jest for testing. The API allows users to perform CRUD operations on a fleet of vehicles, including creating and updating vehicle information, searching for available vehicles, and reserving or renting vehicles. The MongoDB database is used to store information about each vehicle, including its make, model, year, license plate number, color, transmission, fuel type, seats, rental rate, and status. The API also includes authentication and validation middleware to ensure the security and integrity of the data. The Jest testing framework is used to test the API's functionality and ensure that it meets the requirements of the car rental management system.
 
+## Table of Contents
+
+- [User Stories](#user-stories)
+  - [Car Rental Management](#car-rental-management)
+  - [Reservation Management](#reservation-management)
+  - [Customer Management](#customer-management)
+  - [Rate Management](#rate-management)
+  - [Fleet Maintenance Management](#fleet-maintenance-management)
+  - [Reporting & Analytics](#reporting--analytics)
+  - [Technical Assumptions](#technical-assumptions)
+- [Technical Design](#technical-design)
+  - [Architecture](#architecture)
+  - [Project Structure](#project-structure)
+- [Features](#features)
+- [Commands](#commands)
+- [Environment Variables](#environment-variables)
+- [Project Structure](#project-structure)
+- [API Documentation](#api-documentation)
+- [Error Handling](#error-handling)
+- [Validation](#validation)
+- [Authentication](#authentication)
+- [Authorization](#authorization)
+- [Logging](#logging)
+- [Custom Mongoose Plugins](#custom-mongoose-plugins)
+- [Linting](#linting)
+- [Contributing](#contributing)
+
 ## User Stories
 
 ### Car Rental Management
@@ -54,7 +81,7 @@ This is a REST API for a car rental management system built using Express, Node.
 4. As a rental company administrator, I want to log the cost of maintenance for each vehicle, so that I can track expenses and make informed decisions about future maintenance work.
 5. As a customer, I want to see the maintenance history of a specific vehicle, so that I can assess the reliability and safety of the vehicle before renting it.
 
-### Reporting and Analytics
+### Reporting & Analytics
 
 1. As a rental company administrator, I want to generate reports on the rental activity of my fleet, so that I can analyze my business performance.
 2. As a rental company administrator, I want to track the utilization rate of my fleet, so that I can make informed decisions about purchasing new vehicles or retiring older ones.
@@ -76,30 +103,54 @@ This is a REST API for a car rental management system built using Express, Node.
    - The system should be able to handle the storage and retrieval of large amounts of data, including information about vehicles, rental rates, reservations, and rental history.
    - The data should be structured in a way that makes it easy to retrieve information quickly and accurately.
 
-## System Architecture
+## Technical Design
 
-The system architecture is based on the [Model-View-Controller (MVC)](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) pattern, which is a common design pattern for web applications. The MVC pattern separates the application into three main components: the model, the view, and the controller. The model represents the data and business logic of the application, the view represents the user interface, and the controller handles user requests and interacts with the model and view components.
+### Architecture
 
-<p align="center">
-  <img src="https://www.freecodecamp.org/news/content/images/2021/04/MVC3.png" width=40% height=40% >
-  <p align="center">Diagram 1 : Model-View-Controller Architecture</p>
-</p>
+The system architecture for the car rental management system is based on a modular structure that separates the application into different components, each responsible for a specific part of the application. The structure of the system is defined by a set of directories and files, as follows:
 
-## Table of Contents
+- `config` : This directory contains environment variables and configuration related things that are used throughout the application. It stores all the information required to run the application in different environments, such as development, testing, and production.
 
-- [Features](#features)
-- [Commands](#commands)
-- [Environment Variables](#environment-variables)
-- [Project Structure](#project-structure)
-- [API Documentation](#api-documentation)
-- [Error Handling](#error-handling)
-- [Validation](#validation)
-- [Authentication](#authentication)
-- [Authorization](#authorization)
-- [Logging](#logging)
-- [Custom Mongoose Plugins](#custom-mongoose-plugins)
-- [Linting](#linting)
-- [Contributing](#contributing)
+- `controllers` : This directory contains the route controllers, which act as the interface between the incoming HTTP requests and the application logic. Each controller is responsible for handling a specific type of request and returning the appropriate response.
+
+- `docs` : This directory contains Swagger files that define the API documentation for the application. The Swagger files are used to generate a human-readable API documentation that can be used by developers and users to understand the functionality of the API.
+
+- `middlewares` : This directory contains custom express middlewares, which are functions that are executed before the actual route handler is executed. Middlewares are used to perform tasks such as authentication, request validation, and data manipulation.
+
+- `models` : This directory contains Mongoose models, which represent the data layer of the application. The models define the structure of the data that is stored in the MongoDB database and are used to perform database operations.
+
+- `routes` : This directory contains the routes for the application. Each route is defined as a separate file and maps a specific URL to a corresponding controller.
+
+- `services` : This directory contains the business logic for the application, which is separated from the controller layer. The service layer is responsible for performing the actual business logic, such as retrieving and manipulating data, and returning the results to the controller layer.
+
+- `utils` : This directory contains utility classes and functions that are used throughout the application. The utilities provide common functionality that can be reused in multiple parts of the application.
+
+- `validations` : This directory contains request data validation schemas, which define the structure and format of the data that is received by the application. The validation schemas are used to validate incoming requests and ensure that the data received is in the correct format.
+
+- `app.js` : This file contains the Express app, which is the main entry point for the application. The Express app is responsible for setting up the Express framework, defining the routes, and starting the application.
+
+- `index.js` : This file is the app entry point and is responsible for starting the application by calling the appropriate functions in the app.js file.
+
+### Project Structure
+
+```
+src\
+ |--config\         # Environment variables and configuration related things
+ |--controllers\    # Route controllers (controller layer)
+ |--docs\           # Swagger files
+ |--middlewares\    # Custom express middlewares
+ |--models\         # Mongoose models (data layer)
+ |--routes\         # Routes
+ |--services\       # Business logic (service layer)
+ |--utils\          # Utility classes and functions
+ |--validations\    # Request data validation schemas
+ |--app.js          # Express app
+ |--index.js        # App entry point
+```
+
+### Data Flow
+[![](https://mermaid.ink/img/pako:eNp1UkFuwyAQ_MqKc_oBDpGq9NJDpDS5ctnaGxcJA2UhUhXl7wWM68RtTx57Z2ZnVr6KzvUkpGD6TGQ7etE4BByVBfAYou60RxthZzTlB3JD6_nRpUhlXMEvtbMxOGMoVIeftzXvROGiu-rT4Jqxz2lNmVegbJlPiZ6227pbZqntGRBCqcQRooP4QfB8eC3sSsrkJYWEAzITV9ZKhN4H54PG3K57yL3os1lLK2GHxsxGhi4lMi9NGi0LanwJb4mCbpt7jPiOTJBY26F-2js7OMc0t4UJ3C88UkzBLg6Pa-5L_sV8KNHOt-b9d7969fnaU2P2zua0TTAxxEaMFEbUff7LrsVBiTwdSQmZYU9nTCYqoewtUzFFd_qynZAxJNqI5HOE-acU8oyG6fYN1xH3SQ?type=png)](https://mermaid.live/edit#pako:eNp1UkFuwyAQ_MqKc_oBDpGq9NJDpDS5ctnaGxcJA2UhUhXl7wWM68RtTx57Z2ZnVr6KzvUkpGD6TGQ7etE4BByVBfAYou60RxthZzTlB3JD6_nRpUhlXMEvtbMxOGMoVIeftzXvROGiu-rT4Jqxz2lNmVegbJlPiZ6227pbZqntGRBCqcQRooP4QfB8eC3sSsrkJYWEAzITV9ZKhN4H54PG3K57yL3os1lLK2GHxsxGhi4lMi9NGi0LanwJb4mCbpt7jPiOTJBY26F-2js7OMc0t4UJ3C88UkzBLg6Pa-5L_sV8KNHOt-b9d7969fnaU2P2zua0TTAxxEaMFEbUff7LrsVBiTwdSQmZYU9nTCYqoewtUzFFd_qynZAxJNqI5HOE-acU8oyG6fYN1xH3SQ)
+
 
 ## Features
 
@@ -207,23 +258,6 @@ SMTP_PORT=587
 SMTP_USERNAME=email-server-username
 SMTP_PASSWORD=email-server-password
 EMAIL_FROM=support@yourapp.com
-```
-
-## Project Structure
-
-```
-src\
- |--config\         # Environment variables and configuration related things
- |--controllers\    # Route controllers (controller layer)
- |--docs\           # Swagger files
- |--middlewares\    # Custom express middlewares
- |--models\         # Mongoose models (data layer)
- |--routes\         # Routes
- |--services\       # Business logic (service layer)
- |--utils\          # Utility classes and functions
- |--validations\    # Request data validation schemas
- |--app.js          # Express app
- |--index.js        # App entry point
 ```
 
 ## API Documentation

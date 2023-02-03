@@ -10,28 +10,77 @@ This is a REST API for a car rental management system built using Express, Node.
 
 ### Car Rental Management
 
-1) As an employee, I want to be able to add, update, and manage the inventory of rental cars, including car models, colors, and features.
-2) As an employee, I want to be able to manage the availability of rental cars, including setting the rental rate, changing the availability status, and managing the pickup and return locations.
-3) As an employee, I want to be able to generate reports on car rental performance, such as the number of reservations, revenue, and customer feedback.
-4) As a customer, I want to be able to search for available rental cars by location, date, car type, and price range.
-5) As a customer, I want to be able to make a reservation for a rental car, including selecting the pickup and return locations, dates, and car type.
-6) As a customer, I want to be able to view the details of my reservation, including the car model, pickup and return locations, dates, and rental rate.
+1. As an employee, I want to be able to add, update, and manage the inventory of rental cars, including car models, colors, and features.
+2. As an employee, I want to be able to manage the availability of rental cars, including setting the rental rate, changing the availability status, and managing the pickup and return locations.
+3. As an employee, I want to be able to generate reports on car rental performance, such as the number of reservations, revenue, and customer feedback.
+4. As a customer, I want to be able to search for available rental cars by location, date, car type, and price range.
+5. As a customer, I want to be able to make a reservation for a rental car, including selecting the pickup and return locations, dates, and car type.
+6. As a customer, I want to be able to view the details of my reservation, including the car model, pickup and return locations, dates, and rental rate.
 
-## Manual Installation
+### Reservation Management
 
-Install the dependencies:
+1. As an employee, I want to be able to manage rental reservations, including creating new reservations, updating existing reservations, and cancelling reservations.
+2. As an employee, I want to be able to manage the rental pickup and return process, including verifying the customer's identity, checking the car condition, and processing payment.
+3. As a customer, I want to be able to view the status of my rental reservation, including the pickup and return locations, dates, and rental rate.
 
-```bash
-yarn install
-```
+### Customer Management
 
-Set the environment variables:
+1. As a customer, I want to create an account so that I can manage my reservations, personal information, and payment methods.
+2. As a customer, I want to log in to my account using a secure username and password, so that I can access my reservation history and information.
+3. As a customer, I want to update my personal information, such as my name, address, email, and phone number, so that the rental company has accurate information for my reservations.
+4. As a customer, I want to add and manage my payment methods, such as credit cards, PayPal, or bank transfers, so that I can easily pay for my reservations.
+5. As a customer, I want to view my rental history, including past reservations and the cars I have rented.
+6. As a customer, I want to be able to receive promotions and discounts, such as a loyalty program or special offers, so that I can save money on future rentals.
+7. As an employee, I want to view a customer's account information, including their personal information, payment methods, and rental history.
+8. As an employee, I want to be able to update a customer's account information, for example, to correct a mistake or update their contact details.
+9. As an employee, I want to be able to generate reports on customer behavior, such as the number of reservations made by each customer or the average length of a customer's rental.
+10. As a customer, I want to be able to leave a review or rating after a rental, so that other customers can see my feedback on the car and the rental company.
+11. As a customer, I want to be able to receive email or SMS notifications about my reservations, such as confirmation of my rental, reminders about my rental pickup or return, and updates about any changes to my reservation.
+12. As an employee, I want to be able to manage customer feedback and ratings, for example, by responding to customer complaints or addressing negative feedback.
 
-```bash
-cp .env.example .env
+## Rate Management
 
-# open .env and modify the environment variables (if needed)
-```
+1. As a rental company administrator, I want to set different rental rates based on the type of vehicle, so that I can offer fair prices to customers.
+2. As a rental company administrator, I want to set rental rates based on the rental duration, so that I can offer different prices for short-term and long-term rentals.
+3. As a rental company administrator, I want to set different rental rates for different seasons, so that I can adjust prices based on demand.
+4. As a customer, I want to see the rental rate for a specific vehicle and rental duration, so that I can compare prices and make informed decisions.
+5. As a rental company administrator, I want to set discounts for customers who make early bookings, so that I can encourage customers to book in advance.
+
+### Fleet Maintenance Management
+
+1. As a rental company administrator, I want to keep track of the maintenance schedule for each vehicle in my fleet, so that I can ensure that vehicles are kept in good working condition.
+2. As a rental company administrator, I want to log the maintenance history of each vehicle, so that I can have a record of what work has been done and when.
+3. As a rental company administrator, I want to be notified when a vehicle is due for maintenance, so that I can schedule the work in advance.
+4. As a rental company administrator, I want to log the cost of maintenance for each vehicle, so that I can track expenses and make informed decisions about future maintenance work.
+5. As a customer, I want to see the maintenance history of a specific vehicle, so that I can assess the reliability and safety of the vehicle before renting it.
+
+### Reporting and Analytics
+
+1. As a rental company administrator, I want to generate reports on the rental activity of my fleet, so that I can analyze my business performance.
+2. As a rental company administrator, I want to track the utilization rate of my fleet, so that I can make informed decisions about purchasing new vehicles or retiring older ones.
+3. As a rental company administrator, I want to view reports on customer activity, so that I can understand their behavior and preferences.
+4. As a rental company administrator, I want to generate financial reports, so that I can monitor my expenses and revenues.
+5. As a customer, I want to view reports on my rental history, so that I can keep track of my expenses and receipts.
+
+### Technical Assumptions
+
+1. Performance:
+   - The system should be able to handle a large number of simultaneous users and requests without significant latency.
+   - The database (MongoDB) should be optimized for fast read and write operations to handle large amounts of data.
+   - The application should be designed for scalability to handle growth in usage and data.
+2. Usage pattern
+   - The system will likely receive a large number of read requests for searching and retrieving information about vehicles and their availability.
+   - There may also be a significant number of write requests, such as when creating or updating vehicle information or when booking a vehicle.
+3. Data Management
+   - The database should be able to handle concurrent access from multiple users to ensure data consistency and prevent data corruption.
+   - The system should be able to handle the storage and retrieval of large amounts of data, including information about vehicles, rental rates, reservations, and rental history.
+   - The data should be structured in a way that makes it easy to retrieve information quickly and accurately.
+
+## System Architecture
+
+The system architecture is based on the [Model-View-Controller (MVC)](https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller) pattern, which is a common design pattern for web applications. The MVC pattern separates the application into three main components: the model, the view, and the controller. The model represents the data and business logic of the application, the view represents the user interface, and the controller handles user requests and interacts with the model and view components.
+
+<img src="https://www.freecodecamp.org/news/content/images/2021/04/MVC3.png" width="50%" height="50%>
 
 ## Table of Contents
 

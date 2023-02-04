@@ -3,9 +3,9 @@ const faker = require('faker');
 const Vehicle = require('../../src/models/vehicle.model');
 
 const vehicleOne = {
-  _id: mongoose.Types.ObjectId(),
-  make: faker.vehicle.manufacturer(),
-  model: faker.vehicle.model(),
+  _id: '5f3f3f3f3f3f3f3f3f3f3f3f',
+  make: 'Toyota',
+  model: 'Corolla',
   year: 1960,
   licensePlate: faker.vehicle.vrm(),
   color: 'Red',
@@ -18,8 +18,8 @@ const vehicleOne = {
 
 const vehicleTwo = {
   _id: mongoose.Types.ObjectId(),
-  make: faker.vehicle.manufacturer(),
-  model: faker.vehicle.model(),
+  make: 'Honda',
+  model: 'Civic',
   year: 1962,
   licensePlate: faker.vehicle.vrm(),
   color: 'Red',

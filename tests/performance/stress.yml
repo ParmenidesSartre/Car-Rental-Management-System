@@ -1,0 +1,12 @@
+config:
+  target: "http://localhost:3000"
+  phases:
+    - duration: 10
+      arrivalRate: 70
+
+scenarios:
+  - flow:
+    - get:
+        url: "/v1/vehicles"
+        headers:
+          Accept: "application/json"

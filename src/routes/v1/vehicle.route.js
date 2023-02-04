@@ -1,7 +1,7 @@
 const express = require('express');
 const validate = require('../../middlewares/validate');
-const vehicleValidation = require('../../validations/vehicle.validation');
-const vehicleController = require('../../controllers/vehicle.controller');
+const { vehicleValidation, reviewValidation } = require('../../validations');
+const { vehicleController } = require('../../controllers');
 const auth = require('../../middlewares/auth');
 
 const router = express.Router();
@@ -14,7 +14,7 @@ router
   .put(auth('updateVehicle'), validate(vehicleValidation.updateVehicle), vehicleController.updateVehicle)
   .delete(auth('deleteVehicle'), validate(vehicleValidation.deleteVehicle), vehicleController.deleteVehicle);
 
-router.route('/:id/reviews').post(validate(vehicleController.addReview), vehicleController.addReview);
+router.route('/:id/reviews').post(auth(), validate(reviewValidation.createReview), vehicleController.addReview);
 
 router
   .route('/')

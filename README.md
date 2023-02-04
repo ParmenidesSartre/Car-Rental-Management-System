@@ -1,10 +1,8 @@
 # RESTful API Car Rental Management System
 
-[![Build Status](https://travis-ci.org/hagopj13/node-express-boilerplate.svg?branch=master)](https://travis-ci.org/hagopj13/node-express-boilerplate)
-[![Coverage Status](https://coveralls.io/repos/github/hagopj13/node-express-boilerplate/badge.svg?branch=master)](https://coveralls.io/github/hagopj13/node-express-boilerplate?branch=master)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
+The car rental management system REST API provides a comprehensive solution for managing a fleet of vehicles. It allows users to perform various CRUD operations on the vehicles and provides a robust authentication and validation system to ensure data security and integrity. The API is built using Express, Node.js, MongoDB, and Jest, and has been designed with scalability and performance in mind. The MongoDB database provides a flexible and efficient way to store and retrieve information about each vehicle, including its make, model, year, license plate number, color, transmission, fuel type, seats, rental rate, and status.
 
-This is a REST API for a car rental management system built using Express, Node.js, MongoDB, and Jest for testing. The API allows users to perform CRUD operations on a fleet of vehicles, including creating and updating vehicle information, searching for available vehicles, and reserving or renting vehicles. The MongoDB database is used to store information about each vehicle, including its make, model, year, license plate number, color, transmission, fuel type, seats, rental rate, and status. The API also includes authentication and validation middleware to ensure the security and integrity of the data. The Jest testing framework is used to test the API's functionality and ensure that it meets the requirements of the car rental management system.
+The Jest testing framework has been used to test the API's functionality and ensure that it meets the requirements of the car rental management system. The API has been designed with the intention of creating a front-end for it as well when the time permits, to provide a complete and user-friendly solution for car rental management.
 
 ## Table of Contents
 
@@ -22,16 +20,15 @@ This is a REST API for a car rental management system built using Express, Node.
 - [Features](#features)
 - [Commands](#commands)
 - [Environment Variables](#environment-variables)
-- [Project Structure](#project-structure)
+- [Environment Variables](#environment-variables)
 - [API Documentation](#api-documentation)
-- [Error Handling](#error-handling)
-- [Validation](#validation)
 - [Authentication](#authentication)
 - [Authorization](#authorization)
+- [Error Handling](#error-handling)
+- [Validation](#validation)
 - [Logging](#logging)
 - [Custom Mongoose Plugins](#custom-mongoose-plugins)
 - [Linting](#linting)
-- [Contributing](#contributing)
 
 ## User Stories
 
@@ -149,8 +146,8 @@ src\
 ```
 
 ### Data Flow
-[![](https://mermaid.ink/img/pako:eNp1UkFuwyAQ_MqKc_oBDpGq9NJDpDS5ctnaGxcJA2UhUhXl7wWM68RtTx57Z2ZnVr6KzvUkpGD6TGQ7etE4BByVBfAYou60RxthZzTlB3JD6_nRpUhlXMEvtbMxOGMoVIeftzXvROGiu-rT4Jqxz2lNmVegbJlPiZ6227pbZqntGRBCqcQRooP4QfB8eC3sSsrkJYWEAzITV9ZKhN4H54PG3K57yL3os1lLK2GHxsxGhi4lMi9NGi0LanwJb4mCbpt7jPiOTJBY26F-2js7OMc0t4UJ3C88UkzBLg6Pa-5L_sV8KNHOt-b9d7969fnaU2P2zua0TTAxxEaMFEbUff7LrsVBiTwdSQmZYU9nTCYqoewtUzFFd_qynZAxJNqI5HOE-acU8oyG6fYN1xH3SQ?type=png)](https://mermaid.live/edit#pako:eNp1UkFuwyAQ_MqKc_oBDpGq9NJDpDS5ctnaGxcJA2UhUhXl7wWM68RtTx57Z2ZnVr6KzvUkpGD6TGQ7etE4BByVBfAYou60RxthZzTlB3JD6_nRpUhlXMEvtbMxOGMoVIeftzXvROGiu-rT4Jqxz2lNmVegbJlPiZ6227pbZqntGRBCqcQRooP4QfB8eC3sSsrkJYWEAzITV9ZKhN4H54PG3K57yL3os1lLK2GHxsxGhi4lMi9NGi0LanwJb4mCbpt7jPiOTJBY26F-2js7OMc0t4UJ3C88UkzBLg6Pa-5L_sV8KNHOt-b9d7969fnaU2P2zua0TTAxxEaMFEbUff7LrsVBiTwdSQmZYU9nTCYqoewtUzFFd_qynZAxJNqI5HOE-acU8oyG6fYN1xH3SQ)
 
+[![](https://mermaid.ink/img/pako:eNp1UkFuwyAQ_MqKc_oBDpGq9NJDpDS5ctnaGxcJA2UhUhXl7wWM68RtTx57Z2ZnVr6KzvUkpGD6TGQ7etE4BByVBfAYou60RxthZzTlB3JD6_nRpUhlXMEvtbMxOGMoVIeftzXvROGiu-rT4Jqxz2lNmVegbJlPiZ6227pbZqntGRBCqcQRooP4QfB8eC3sSsrkJYWEAzITV9ZKhN4H54PG3K57yL3os1lLK2GHxsxGhi4lMi9NGi0LanwJb4mCbpt7jPiOTJBY26F-2js7OMc0t4UJ3C88UkzBLg6Pa-5L_sV8KNHOt-b9d7969fnaU2P2zua0TTAxxEaMFEbUff7LrsVBiTwdSQmZYU9nTCYqoewtUzFFd_qynZAxJNqI5HOE-acU8oyG6fYN1xH3SQ?type=png)](https://mermaid.live/edit#pako:eNp1UkFuwyAQ_MqKc_oBDpGq9NJDpDS5ctnaGxcJA2UhUhXl7wWM68RtTx57Z2ZnVr6KzvUkpGD6TGQ7etE4BByVBfAYou60RxthZzTlB3JD6_nRpUhlXMEvtbMxOGMoVIeftzXvROGiu-rT4Jqxz2lNmVegbJlPiZ6227pbZqntGRBCqcQRooP4QfB8eC3sSsrkJYWEAzITV9ZKhN4H54PG3K57yL3os1lLK2GHxsxGhi4lMi9NGi0LanwJb4mCbpt7jPiOTJBY26F-2js7OMc0t4UJ3C88UkzBLg6Pa-5L_sV8KNHOt-b9d7969fnaU2P2zua0TTAxxEaMFEbUff7LrsVBiTwdSQmZYU9nTCYqoewtUzFFd_qynZAxJNqI5HOE-acU8oyG6fYN1xH3SQ)
 
 ## Features
 
@@ -283,6 +280,25 @@ List of available routes:
 `GET /v1/users/:userId` - get user\
 `PATCH /v1/users/:userId` - update user\
 `DELETE /v1/users/:userId` - delete user
+
+**Vehicle routes**:\
+`POST /v1/vehicles` - create a vehicle\
+`POST /v1/vehicles?sortBy` - sort vehicles\
+`POST /v1/vehicles?limit` - limit number of vehicles\
+`POST /v1/vehicles?page` - get pagination page\
+`POST /v1/vehicles?make` - get vehicles by make\
+`POST /v1/vehicles?model` - get vehicles by model\
+`POST /v1/vehicles?year` - get vehicles by year\
+`POST /v1/vehicles?color` - get vehicles by color\
+`POST /v1/vehicles?transmission` - get vehicles by transmission type\
+`GET /v1/vehicles` - get all vehicles\
+`GET /v1/vehicles/:id` - get vehicle\
+`PUT /v1/vehicles/:id - update vehicle\ `DELETE /v1/vehicles/:id` - delete vehicle\
+
+**Review routes**:\
+`POST /v1/vehicle/:vehicleId/reviews` - create a review\
+`PUT /v1/reviews/:reviewId` - update review\
+`DELETE /v1/reviews/:reviewId` - delete review
 
 ## Error Handling
 
@@ -495,16 +511,6 @@ To modify the ESLint configuration, update the `.eslintrc.json` file. To modify 
 To prevent a certain file or directory from being linted, add it to `.eslintignore` and `.prettierignore`.
 
 To maintain a consistent coding style across different IDEs, the project contains `.editorconfig`
-
-## Contributing
-
-Contributions are more than welcome! Please check out the [contributing guide](CONTRIBUTING.md).
-
-## Inspirations
-
-- [danielfsousa/express-rest-es2017-boilerplate](https://github.com/danielfsousa/express-rest-es2017-boilerplate)
-- [madhums/node-express-mongoose](https://github.com/madhums/node-express-mongoose)
-- [kunalkapadia/express-mongoose-es6-rest-api](https://github.com/kunalkapadia/express-mongoose-es6-rest-api)
 
 ## License
 

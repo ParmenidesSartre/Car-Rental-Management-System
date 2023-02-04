@@ -78,16 +78,22 @@ const deleteVehicle = async (id) => {
  * @param {ObjectId} id
  * @returns {Promise<Vehicle>}
  * */
-const addReview = async (id, reviewBody) => {
+const addReview = async (id, reviewBody, user) => {
   const vehicle = await searchVehicle(id);
   if (!vehicle) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Vehicle not found');
   }
 
-  // Create new review and get id
-  const review = await Review.create(reviewBody);
+  // Check if user already reviewed vehicle
+  const reviewed = await Review.findOne({ vehicle: id, reviewer: user._id });
 
-  // TODO - Check if user already sent a review for this vehicle
+  if (reviewed) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'You already reviewed this vehicle');
+  }
+
+  // Create new review and get id
+  const review = await Review.create(Object.assign(reviewBody, { vehicle: id, reviewer: user._id }));
+
   vehicle.reviews.push(review._id);
   await vehicle.save();
   return review;

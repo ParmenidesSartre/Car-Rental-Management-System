@@ -110,35 +110,13 @@ describe('Vehicle routes', () => {
   });
 
   describe('GET /v1/vehicles', () => {
-    let newVehicle;
-
-    beforeEach(() => {
-      newVehicle = {
-        make: faker.vehicle.manufacturer(),
-        model: faker.vehicle.model(),
-        year: 1960,
-        licensePlate: faker.vehicle.vrm(),
-        color: 'Red',
-        transmission: 'Automatic',
-        fuel_type: 'Gasoline',
-        seats: faker.datatype.number(),
-        rentalRate: parseInt(faker.finance.amount(), 10),
-        status: 'Available',
-      };
-    });
-
     test('should return 200 and apply the default query options', async () => {
       await insertVehicles([vehicleOne, vehicleTwo]);
       await insertUsers([userOne, admin]);
-      await request(app)
-        .post('/v1/vehicles')
-        .set('Authorization', `Bearer ${adminAccessToken}`)
-        .send(newVehicle)
-        .expect(httpStatus.CREATED);
 
       const res = await request(app).get('/v1/vehicles').send().expect(httpStatus.OK);
       expect(res.body.results).toBeDefined();
-      expect(res.body.results.length).toBe(3);
+      expect(res.body.results.length).toBe(2);
       expect(res.body.results[0]).toHaveProperty('make');
       expect(res.body.results[0]).toHaveProperty('model');
       expect(res.body.results[0]).toHaveProperty('year');
@@ -150,6 +128,76 @@ describe('Vehicle routes', () => {
       expect(res.body.results[0]).toHaveProperty('rentalRate');
       expect(res.body.results[0]).toHaveProperty('status');
       expect(res.body.results[0]).toHaveProperty('id');
+    });
+
+    test('should return 200 and apply the given query string', async () => {
+      await insertVehicles([vehicleOne, vehicleTwo]);
+      await insertUsers([userOne, admin]);
+
+      const res = await request(app).get('/v1/vehicles?make=Toyota').send().expect(httpStatus.OK);
+      expect(res.body.results).toBeDefined();
+      expect(res.body.results.length).toBe(1);
+      expect(res.body.results[0]).toHaveProperty('make');
+      expect(res.body.results[0]).toHaveProperty('model');
+      expect(res.body.results[0]).toHaveProperty('year');
+      expect(res.body.results[0]).toHaveProperty('licensePlate');
+      expect(res.body.results[0]).toHaveProperty('color');
+      expect(res.body.results[0]).toHaveProperty('transmission');
+      expect(res.body.results[0]).toHaveProperty('fuel_type');
+      expect(res.body.results[0]).toHaveProperty('seats');
+      expect(res.body.results[0]).toHaveProperty('rentalRate');
+      expect(res.body.results[0]).toHaveProperty('status');
+      expect(res.body.results[0]).toHaveProperty('id');
+    });
+
+    test('should return 200 and sort the results', async () => {
+      await insertVehicles([vehicleOne, vehicleTwo]);
+      await insertUsers([userOne, admin]);
+
+      const res = await request(app).get('/v1/vehicles?sortBy=seats').send().expect(httpStatus.OK);
+      expect(res.body.results).toBeDefined();
+      expect(res.body.results.length).toBe(2);
+      expect(res.body.results[0]).toHaveProperty('make');
+      expect(res.body.results[0]).toHaveProperty('model');
+      expect(res.body.results[0]).toHaveProperty('year');
+      expect(res.body.results[0]).toHaveProperty('licensePlate');
+      expect(res.body.results[0]).toHaveProperty('color');
+      expect(res.body.results[0]).toHaveProperty('transmission');
+      expect(res.body.results[0]).toHaveProperty('fuel_type');
+      expect(res.body.results[0]).toHaveProperty('seats');
+      expect(res.body.results[0]).toHaveProperty('rentalRate');
+      expect(res.body.results[0]).toHaveProperty('status');
+      expect(res.body.results[0]).toHaveProperty('id');
+    });
+
+    test('should return 200 and limit the results', async () => {
+      await insertVehicles([vehicleOne, vehicleTwo]);
+      await insertUsers([userOne, admin]);
+
+      const res = await request(app).get('/v1/vehicles?limit=1').send().expect(httpStatus.OK);
+      expect(res.body.results).toBeDefined();
+      expect(res.body.results.length).toBe(1);
+      expect(res.body.results[0]).toHaveProperty('make');
+      expect(res.body.results[0]).toHaveProperty('model');
+      expect(res.body.results[0]).toHaveProperty('year');
+      expect(res.body.results[0]).toHaveProperty('licensePlate');
+      expect(res.body.results[0]).toHaveProperty('color');
+      expect(res.body.results[0]).toHaveProperty('transmission');
+      expect(res.body.results[0]).toHaveProperty('fuel_type');
+      expect(res.body.results[0]).toHaveProperty('seats');
+      expect(res.body.results[0]).toHaveProperty('rentalRate');
+      expect(res.body.results[0]).toHaveProperty('status');
+      expect(res.body.results[0]).toHaveProperty('id');
+    });
+
+    test('should return 200 and get page 2 with return zero result', async () => {
+      await insertVehicles([vehicleOne, vehicleTwo]);
+      await insertUsers([userOne, admin]);
+
+      const res = await request(app).get('/v1/vehicles?page=2').send().expect(httpStatus.OK);
+
+      expect(res.body.results).toBeDefined();
+      expect(res.body.results.length).toBe(0);
     });
   });
 
@@ -233,6 +281,28 @@ describe('Vehicle routes', () => {
           status: 'Available',
         })
         .expect(httpStatus.BAD_REQUEST);
+    });
+  });
+
+  describe('DELETE /v1/vehicles/:id', () => {
+    test('should return 200 and successfully delete vehicle if data is ok', async () => {
+      await insertVehicles([vehicleOne]);
+      await insertUsers([userOne, admin]);
+      await request(app)
+        .delete(`/v1/vehicles/${vehicleOne._id}`)
+        .set('Authorization', `Bearer ${adminAccessToken}`)
+        .send()
+        .expect(httpStatus.NO_CONTENT);
+    });
+
+    test('should return 404 error if vehicle is not found', async () => {
+      await insertVehicles([vehicleOne]);
+      await insertUsers([userOne, admin]);
+      await request(app)
+        .delete(`/v1/vehicles/${vehicleTwo._id}`)
+        .set('Authorization', `Bearer ${adminAccessToken}`)
+        .send()
+        .expect(httpStatus.NOT_FOUND);
     });
   });
 });

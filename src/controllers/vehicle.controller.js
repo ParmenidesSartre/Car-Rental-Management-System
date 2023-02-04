@@ -9,7 +9,7 @@ const createVehicle = catchAsync(async (req, res) => {
 });
 
 const getVehicles = catchAsync(async (req, res) => {
-  const filter = pick(req.query, ['make', 'model', 'year', 'licensePlate', 'status']);
+  const filter = pick(req.query, ['make', 'transmission', 'model', 'year', 'licensePlate', 'status']);
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
   const result = await vehicleService.queryVehicles(filter, options);
   res.send(result);
@@ -38,7 +38,7 @@ const deleteVehicle = catchAsync(async (req, res) => {
 });
 
 const addReview = catchAsync(async (req, res) => {
-  const review = await vehicleService.addReview(req.params.id, req.body);
+  const review = await vehicleService.addReview(req.params.id, req.body, req.user);
   res.status(httpStatus.CREATED).send(review);
 });
 

@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "description": "A REST API for managing a car rental business built using Node.js, Express, and MongoDB.",
   "main": "src/index.js",
-  "repository": "https://github.com/hagopj13/node-express-boilerplate.git",
+  "repository": "https://github.com/ParmenidesSartre/Car-Rental-Management-System.git",
   "author": "Mohd Faizal Bin Azman <faizalazman88@gmail.com>",
   "license": "MIT",
   "engines": {

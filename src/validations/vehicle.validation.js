@@ -36,13 +36,13 @@ const getVehicles = {
 
 const getVehicle = {
   params: Joi.object().keys({
-    vehicleId: Joi.string().custom(objectId),
+    id: Joi.string().custom(objectId),
   }),
 };
 
 const updateVehicle = {
   params: Joi.object().keys({
-    vehicleId: Joi.required().custom(objectId),
+    id: Joi.required().custom(objectId),
   }),
   body: Joi.object()
     .keys({
@@ -62,7 +62,18 @@ const updateVehicle = {
 
 const deleteVehicle = {
   params: Joi.object().keys({
-    vehicleId: Joi.string().custom(objectId),
+    id: Joi.string().custom(objectId),
+  }),
+};
+
+const addReview = {
+  params: Joi.object().keys({
+    id: Joi.string().custom(objectId),
+  }),
+  body: Joi.object().keys({
+    reviewer: Joi.required().custom(objectId),
+    rating: Joi.number().required().min(1).max(5),
+    comment: Joi.string().required(),
   }),
 };
 
@@ -72,4 +83,5 @@ module.exports = {
   getVehicle,
   updateVehicle,
   deleteVehicle,
+  addReview,
 };

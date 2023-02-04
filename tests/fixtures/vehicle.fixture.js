@@ -11,7 +11,21 @@ const vehicleOne = {
   color: 'Red',
   transmission: 'Automatic',
   fuel_type: 'Gasoline',
-  seats: faker.random.number(),
+  seats: faker.datatype.number(),
+  rentalRate: parseInt(faker.finance.amount(), 10),
+  status: 'Available',
+};
+
+const vehicleTwo = {
+  _id: mongoose.Types.ObjectId(),
+  make: faker.vehicle.manufacturer(),
+  model: faker.vehicle.model(),
+  year: 1962,
+  licensePlate: faker.vehicle.vrm(),
+  color: 'Red',
+  transmission: 'Automatic',
+  fuel_type: 'Gasoline',
+  seats: faker.datatype.number(),
   rentalRate: parseInt(faker.finance.amount(), 10),
   status: 'Available',
 };
@@ -22,5 +36,6 @@ const insertVehicles = async (vehicles) => {
 
 module.exports = {
   vehicleOne,
+  vehicleTwo,
   insertVehicles,
 };

@@ -1,21 +1,24 @@
 const express = require('express');
 const validate = require('../../middlewares/validate');
+const vehicleValidation = require('../../validations/vehicle.validation');
 const vehicleController = require('../../controllers/vehicle.controller');
 const auth = require('../../middlewares/auth');
 
 const router = express.Router();
 
-router
-  .route('/')
-  .post(validate(vehicleController.createVehicle), vehicleController.createVehicle) // auth('createVehicle'),
-  .get(validate(vehicleController.getVehicles), vehicleController.getVehicles);
-
 router.route('/search').get(validate(vehicleController.searchVehicles), vehicleController.searchVehicles);
 
 router
   .route('/:id')
-  .get(validate(vehicleController.searchVehicle), vehicleController.searchVehicle)
-  .put(validate(vehicleController.updateVehicle), auth('updateVehicle'), vehicleController.updateVehicle)
-  .delete(validate(vehicleController.deleteVehicle), auth('deleteVehicle'), vehicleController.deleteVehicle);
+  .get(validate(vehicleValidation.getVehicle), vehicleController.searchVehicle)
+  .put(auth('updateVehicle'), validate(vehicleValidation.updateVehicle), vehicleController.updateVehicle)
+  .delete(auth('deleteVehicle'), validate(vehicleValidation.deleteVehicle), vehicleController.deleteVehicle);
+
+router.route('/:id/reviews').post(validate(vehicleController.addReview), vehicleController.addReview);
+
+router
+  .route('/')
+  .post(auth('createVehicle'), validate(vehicleValidation.createVehicle), vehicleController.createVehicle) // auth('createVehicle'),
+  .get(validate(vehicleValidation.getVehicles), vehicleController.getVehicles);
 
 module.exports = router;

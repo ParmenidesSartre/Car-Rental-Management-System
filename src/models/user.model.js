@@ -48,10 +48,7 @@ const userSchema = mongoose.Schema(
       type: Array,
       default: [],
     },
-    rentalHistory: {
-      type: Array,
-      default: [],
-    },
+    rentalHistory: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Rental' }],
   },
   {
     timestamps: true,

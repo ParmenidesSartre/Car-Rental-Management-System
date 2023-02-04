@@ -1,5 +1,5 @@
 const httpStatus = require('http-status');
-const { Vehicle } = require('../models');
+const { Vehicle, Review } = require('../models');
 const ApiError = require('../utils/ApiError');
 
 /**
@@ -34,7 +34,10 @@ const queryVehicles = async (filter, options) => {
  * @returns {Promise<Vehicle>}
  * */
 const searchVehicle = async (id) => {
-  const vehicle = await Vehicle.findById(id);
+  const vehicle = await Vehicle.findById(id).populate('reviews');
+  if (!vehicle) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Vehicle not found');
+  }
   return vehicle;
 };
 
@@ -43,7 +46,6 @@ const searchVehicle = async (id) => {
  * @param {ObjectId} id
  * @returns {Promise<Vehicle>}
  * */
-
 const updateVehicle = async (id, updateBody) => {
   const vehicle = await searchVehicle(id);
   if (!vehicle) {
@@ -57,6 +59,11 @@ const updateVehicle = async (id, updateBody) => {
   return vehicle;
 };
 
+/**
+ * Delete vehicle by id
+ * @param {ObjectId} id
+ * @returns {Promise<Vehicle>}
+ * */
 const deleteVehicle = async (id) => {
   const vehicle = await searchVehicle(id);
   if (!vehicle) {
@@ -66,10 +73,31 @@ const deleteVehicle = async (id) => {
   return vehicle;
 };
 
+/**
+ * Add review to vehicle by id
+ * @param {ObjectId} id
+ * @returns {Promise<Vehicle>}
+ * */
+const addReview = async (id, reviewBody) => {
+  const vehicle = await searchVehicle(id);
+  if (!vehicle) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Vehicle not found');
+  }
+
+  // Create new review and get id
+  const review = await Review.create(reviewBody);
+
+  // TODO - Check if user already sent a review for this vehicle
+  vehicle.reviews.push(review._id);
+  await vehicle.save();
+  return review;
+};
+
 module.exports = {
   createVehicle,
   queryVehicles,
   searchVehicle,
   updateVehicle,
   deleteVehicle,
+  addReview,
 };

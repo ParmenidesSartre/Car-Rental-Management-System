@@ -50,6 +50,12 @@ const vehicleSchema = mongoose.Schema({
     enum: ['Available', 'Reserved', 'Rented', 'Maintenance'],
     default: 'Available',
   },
+  reviews: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Review',
+    },
+  ],
 });
 
 // add plugin that converts mongoose to json

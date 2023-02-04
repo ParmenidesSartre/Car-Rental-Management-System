@@ -37,6 +37,11 @@ const deleteVehicle = catchAsync(async (req, res) => {
   res.status(httpStatus.NO_CONTENT).send();
 });
 
+const addReview = catchAsync(async (req, res) => {
+  const review = await vehicleService.addReview(req.params.id, req.body);
+  res.status(httpStatus.CREATED).send(review);
+});
+
 module.exports = {
   createVehicle,
   getVehicles,
@@ -44,4 +49,5 @@ module.exports = {
   searchVehicle,
   updateVehicle,
   deleteVehicle,
+  addReview,
 };
